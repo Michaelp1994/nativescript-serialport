@@ -1,0 +1,1 @@
+include ':libs:usb-serial-for-android:usbSerialForAndroid'

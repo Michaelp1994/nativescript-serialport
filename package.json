@@ -1,0 +1,23 @@
+{
+  "name": "nativescript-usb-serial",
+  "version": "0.0.1",
+  "description": "A nativescript plugin for usb-serial-for-android",
+  "main": "nativeSerialPort.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  },
+  "author": "Michael Poulgrain",
+  "license": "MIT",
+  "nativescript": {
+    "platforms": {
+      "android": "1.2.0"
+    }
+  }
+}
