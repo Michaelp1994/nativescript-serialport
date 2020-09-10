@@ -12,13 +12,13 @@ const DATABITSCONVERSION = Object.freeze({
   5: UsbSerialInterface.DATA_BITS_5,
   6: UsbSerialInterface.DATA_BITS_6,
   7: UsbSerialInterface.DATA_BITS_7,
-  8: UsbSerialInterface.DATA_BITS_8
+  8: UsbSerialInterface.DATA_BITS_8,
 });
 const STOPBITS = Object.freeze([1, 1.5, 2]);
 const STOPBITSCONVERSION = Object.freeze({
   1: UsbSerialInterface.STOP_BITS_1,
-  "1.5": UsbSerialInterface.STOP_BITS_15,
-  2: UsbSerialInterface.STOP_BITS_2
+  1.5: UsbSerialInterface.STOP_BITS_15,
+  2: UsbSerialInterface.STOP_BITS_2,
 });
 const PARITY = Object.freeze(["none", "even", "mark", "odd", "space"]);
 const PARITYCONVERSION = Object.freeze({
@@ -26,7 +26,7 @@ const PARITYCONVERSION = Object.freeze({
   even: UsbSerialInterface.PARITY_EVEN,
   mark: UsbSerialInterface.PARITY_MARK,
   odd: UsbSerialInterface.PARITY_ODD,
-  space: UsbSerialInterface.PARITY_SPACE
+  space: UsbSerialInterface.PARITY_SPACE,
 });
 const FLOWCONTROLS = Object.freeze(["xon", "xoff", "xany", "rtscts"]);
 // const FLOWCONTROLSCONVERSION = Object.freeze({
@@ -62,7 +62,7 @@ const defaultSettings = Object.freeze({
   xany: false,
   xoff: false,
   xon: false,
-  highWaterMark: 64 * 1024
+  highWaterMark: 64 * 1024,
 });
 
 class SerialPort {
@@ -75,9 +75,9 @@ class SerialPort {
     this.port = null;
     this._onReceiver = {};
     this._readCallback = new UsbSerialInterface.UsbReadCallback({
-      onReceivedData: data => {
+      onReceivedData: (data) => {
         console.log(data);
-      }
+      },
     });
 
     var device = null;
@@ -88,10 +88,7 @@ class SerialPort {
       new android.content.Intent(ACTION_USB_PERMISSION),
       0
     );
-    const usbDevices = manager
-      .getDeviceList()
-      .values()
-      .iterator();
+    const usbDevices = manager.getDeviceList().values().iterator();
     if (usbDevices.hasNext()) {
       device = usbDevices.next();
     }
@@ -115,12 +112,12 @@ class SerialPort {
     this._onReceiver[event] = func;
     switch (event) {
       case "data":
-        const newFunc = data => {
+        const newFunc = (data) => {
           const response = fromUTF8Array(data).replace(/\n|\r/g, "");
           func(response);
         };
         const dataCallback = new UsbSerialInterface.UsbReadCallback({
-          onReceivedData: newFunc
+          onReceivedData: newFunc,
         });
         this.port.read(dataCallback);
         break;
@@ -162,10 +159,7 @@ class SerialPort {
   static list() {
     const manager = app.android.context.getSystemService(context.USB_SERVICE);
     var devices = [];
-    const usbDevices = manager
-      .getDeviceList()
-      .values()
-      .iterator();
+    const usbDevices = manager.getDeviceList().values().iterator();
     while (usbDevices.hasNext()) {
       const newDevice = usbDevices.next();
       devices.push(newDevice);

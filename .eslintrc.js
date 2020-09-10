@@ -4,12 +4,9 @@ module.exports = {
     sourceType: "module",
     parser: "babel-eslint",
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ],
+  extends: ["eslint:recommended", "plugin:prettier/recommended"],
   env: {
-    node: true
+    node: true,
   },
   root: true,
   // plugins: ["nativescript"],
